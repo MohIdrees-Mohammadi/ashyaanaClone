@@ -40,7 +40,7 @@ const Header = () => {
             setIsHomeActive(isActive)
 
             return (
-              isActive ? "flex text-gray-100 items-center bg-indigo-600 px-4 xl:px-5  py-3.5 xl:py-3.5 rounded-3xl gap-2" : "flex text-gray-500 items-center  px-5 py-3.5 rounded-3xl gap-2"
+              isActive ? "flex text-gray-100 items-center bg-indigo-600 px-4 xl:px-5  py-3.5 xl:py-2 rounded-3xl gap-2" : "flex text-gray-500 items-center  px-5 py-2 rounded-3xl gap-2"
             )
           }
           }>

@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 
 const Layout = () => {
   return (
-    <div className='bg-gray-100/70 min-h-screen'>
+    <div className='mt-37 mx-34 min-h-screen'>
         {/* header */}
         <Header />
         {/* outlet */}

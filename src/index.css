@@ -129,3 +129,16 @@
     @apply font-sans;
     }
 }
+
+
+@theme {
+  --animate-wiggle: wiggle 1s ease-in-out ;
+  @keyframes wiggle {
+    0%{
+      transform: translateY(30px)
+    }
+    100% {
+       transform: translateY(0px)
+    }
+  }
+}

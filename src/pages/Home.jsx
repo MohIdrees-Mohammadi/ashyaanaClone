@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
 import Autoplay from "embla-carousel-autoplay"
@@ -10,9 +10,32 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 
+import { Search } from 'lucide-react';
+import CustomerSelect from '@/components/CustomerSelect'
 
 
 const Home = () => {
+  const [active, setActive] = useState(true)
+  const property = [
+    { label: "LightP", value: "lightP" },
+    { label: "DarkP", value: "darkP" },
+    { label: "SystemP", value: "systemP" },
+  ]
+  const propertyOperation = [
+    { label: "Lightp", value: "lightp" },
+    { label: "Darkp", value: "darkp" },
+    { label: "Systemp", value: "systemp" },
+  ]
+  const vehicle = [
+    { label: "Light", value: "light" },
+    { label: "Dark", value: "dark" },
+    { label: "System", value: "system" },
+  ]
+  const vehicleOperation = [
+    { label: "Light", value: "light" },
+    { label: "Dark", value: "dark" },
+    { label: "System", value: "system" },
+  ]
   return (
     <section className='relative mx-40 '>
       <Carousel
@@ -67,7 +90,34 @@ const Home = () => {
         <p className='text-white'>new listings this week</p>
       </div>
 
-    </section>
+      <div className=' w-full absolute top-[55%] flex flex-col items-center justify-center'>
+        <div className=' flex gap-3 mb-3'>
+          <button onClick={() => setActive(true)} className={active ? 'px-4 py-1.5 rounded-xl text-gray-300 font-semibold bg-indigo-600 cursor-pointer' : 'px-4 py-1.5 rounded-xl text-gray-300 font-semibold bg-gray-200/10 cursor-pointer'}>Vehicle</button>
+          <button onClick={() => setActive(false)} className={active ? 'px-4 py-1.5 rounded-xl text-gray-300 font-semibold bg-gray-200/10 cursor-pointer' : 'px-4 py-1.5 rounded-xl text-gray-300 font-semibold bg-indigo-600 cursor-pointer'}>Property</button>
+        </div>
+        <input className='bg-gray-200/80 py-4 px-13 rounded-3xl w-[60%]' type="text" placeholder={active ? "Vehicle" : "Property"} />
+        <Search size={22} className='text-indigo-600 absolute top-[63%] left-[21.5%]' />
+        {/* filters */}
+        <div className='flex gap-3 absolute top-[59%] left-[50%]'>
+          {
+            active ? (
+              <>
+                <CustomerSelect items={vehicle} placeholder="Vehicle" />
+                <CustomerSelect items={vehicleOperation} placeholder="Operation" />
+              </>
+            ) : (
+              <>
+                <CustomerSelect items={property} placeholder="Property" />
+                <CustomerSelect items={propertyOperation} placeholder="Operation" />
+              </>
+            )
+          }
+
+
+        </div>
+      </div>
+
+    </section >
   )
 }
 

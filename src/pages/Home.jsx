@@ -162,7 +162,7 @@ const Home = () => {
         </div>
 
         {/* ================= PROPERTY / VEHICLE TABS ================= */}
-        <div className="absolute left-1/2 top-[38%] z-30 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/20 bg-black/30 p-1.5 shadow-lg backdrop-blur-md sm:top-[41%] lg:top-[47%]">
+        <div className="absolute my-20 left-1/2  top-[38%] z-30 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/20 bg-black/30 p-1.5 shadow-lg backdrop-blur-md sm:top-[41%] lg:top-[47%]">
 
           <button
             type="button"
@@ -193,11 +193,11 @@ const Home = () => {
         </div>
 
         {/* ================= SEARCH BAR ================= */}
-        <div className="absolute inset-x-3 top-[47%] z-20 sm:inset-x-8 sm:top-[50%] lg:inset-x-0 lg:top-[55%]">
+        <div className="absolute inset-x-3 py-30 top-[47%] z-20 sm:inset-x-8 sm:top-[50%] lg:inset-x-0 lg:top-[55%]  ">
 
           <form
             onSubmit={handleSearch}
-            className="mx-auto grid w-full max-w-[680px] grid-cols-1 gap-2 rounded-2xl border border-white/40 bg-white/95 p-3 shadow-2xl backdrop-blur-xl sm:grid-cols-2 sm:gap-3 lg:grid-cols-[minmax(0,1fr)_130px_100px_auto] lg:items-center lg:gap-0 lg:rounded-full lg:p-2"
+            className="mx-auto grid w-full max-w-170 grid-cols-1 gap-2 rounded-2xl border border-white/40 bg-white/95 p-3 shadow-2xl backdrop-blur-xl sm:grid-cols-2 sm:gap-3 lg:grid-cols-[minmax(0,1fr)_130px_100px_auto] lg:items-center lg: lg:rounded-full lg:p-2"
           >
 
             {/* Search input */}
@@ -205,7 +205,7 @@ const Home = () => {
 
               <Search
                 size={20}
-                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500"
+                className=" pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500"
               />
 
               <input
@@ -226,7 +226,7 @@ const Home = () => {
             </div>
 
             {/* Category filter */}
-            <div className="min-w-0 lg:border-l lg:border-gray-200 lg:px-2">
+            <div className="min-w-0 lg:border-l lg:border-gray-200  lg:px-2">
               {isVehicle ? (
                 <CustomerSelect
                   items={vehicle}

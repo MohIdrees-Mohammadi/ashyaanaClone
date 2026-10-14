@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Autoplay from "embla-carousel-autoplay";
+import ExploreCatagories from "../components/ExploreCatagories";
+import PropertyCatagories from "../components/PropertyCatagories";
+import { propertyData, vehicleData } from "../components/Constants";
 
 import {
   Carousel,
@@ -73,6 +76,18 @@ const Home = () => {
   // false = Property selected, true = Vehicle selected
   const [isVehicle, setIsVehicle] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [data, setData] = useState(propertyData);
+  const [isActive, setIsActive] = useState(true);
+
+  function onPropertyData() {
+    setIsActive(true);
+    setData(propertyData);
+  }
+
+  function onVehicleData() {
+    setIsActive(false);
+    setData(vehicleData);
+  }
 
   const navigate = useNavigate();
 
@@ -88,8 +103,7 @@ const Home = () => {
   };
 
   return (
-    <main className="w-full overflow-hidden bg-white">
-
+    <main className="w-full overflow-hidden">
       {/* ================= HERO SECTION ================= */}
       <section
         id="home-search"
@@ -106,14 +120,9 @@ const Home = () => {
           ]}
         >
           <CarouselContent className="ml-0">
-
             {slides.map((slide, index) => (
-              <CarouselItem
-                key={`${slide.image}-${index}`}
-                className="pl-0"
-              >
+              <CarouselItem key={`${slide.image}-${index}`} className="pl-0">
                 <div className="relative h-[720px] overflow-hidden rounded-2xl sm:h-[650px] sm:rounded-3xl lg:h-[560px]">
-
                   {/* Original carousel images kept unchanged */}
                   <img
                     src={slide.image}
@@ -126,7 +135,6 @@ const Home = () => {
 
                   {/* Carousel title */}
                   <div className="absolute inset-x-4 top-[13%] z-10 flex flex-col items-center text-center sm:inset-x-10 sm:top-[17%] lg:top-[20%]">
-
                     <h1 className="max-w-4xl text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
                       {slide.title}
                     </h1>
@@ -134,13 +142,10 @@ const Home = () => {
                     <p className="mt-3 max-w-2xl text-sm text-gray-200 sm:text-lg md:text-xl">
                       {slide.description}
                     </p>
-
                   </div>
-
                 </div>
               </CarouselItem>
             ))}
-
           </CarouselContent>
 
           {/* Carousel arrows: bottom-right */}
@@ -163,7 +168,6 @@ const Home = () => {
 
         {/* ================= PROPERTY / VEHICLE TABS ================= */}
         <div className="absolute my-20 left-1/2  top-[38%] z-30 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/20 bg-black/30 p-1.5 shadow-lg backdrop-blur-md sm:top-[41%] lg:top-[47%]">
-
           <button
             type="button"
             aria-pressed={!isVehicle}
@@ -189,20 +193,16 @@ const Home = () => {
           >
             Vehicle
           </button>
-
         </div>
 
         {/* ================= SEARCH BAR ================= */}
         <div className="absolute inset-x-3 py-30 top-[47%] z-20 sm:inset-x-8 sm:top-[50%] lg:inset-x-0 lg:top-[55%]  ">
-
           <form
             onSubmit={handleSearch}
             className="mx-auto grid w-full max-w-170 grid-cols-1 gap-2 rounded-2xl border border-white/40 bg-white/95 p-3 shadow-2xl backdrop-blur-xl sm:grid-cols-2 sm:gap-3 lg:grid-cols-[minmax(0,1fr)_130px_100px_auto] lg:items-center lg: lg:rounded-full lg:p-2"
           >
-
             {/* Search input */}
             <div className="relative min-w-0 sm:col-span-2 lg:col-span-1">
-
               <Search
                 size={20}
                 className=" pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500"
@@ -213,45 +213,28 @@ const Home = () => {
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
                 placeholder={
-                  isVehicle
-                    ? "Search vehicles..."
-                    : "Search properties..."
+                  isVehicle ? "Search vehicles..." : "Search properties..."
                 }
-                aria-label={
-                  isVehicle ? "Search vehicles" : "Search properties"
-                }
+                aria-label={isVehicle ? "Search vehicles" : "Search properties"}
                 className="h-12 w-full min-w-0 rounded-xl border border-gray-200 bg-transparent pl-11 pr-3 text-sm text-gray-800 outline-none placeholder:text-gray-400 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 lg:rounded-full lg:border-0 lg:focus:ring-0"
               />
-
             </div>
 
             {/* Category filter */}
             <div className="min-w-0 lg:border-l lg:border-gray-200  lg:px-2">
               {isVehicle ? (
-                <CustomerSelect
-                  items={vehicle}
-                  placeholder="Vehicle Type"
-                />
+                <CustomerSelect items={vehicle} placeholder="Vehicle Type" />
               ) : (
-                <CustomerSelect
-                  items={property}
-                  placeholder="Property Type"
-                />
+                <CustomerSelect items={property} placeholder="Property Type" />
               )}
             </div>
 
             {/* Operation filter */}
             <div className="min-w-0 lg:border-l lg:border-gray-200 lg:px-2">
               {isVehicle ? (
-                <CustomerSelect
-                  items={vehicleOperation}
-                  placeholder="Buy"
-                />
+                <CustomerSelect items={vehicleOperation} placeholder="Buy" />
               ) : (
-                <CustomerSelect
-                  items={propertyOperation}
-                  placeholder="Buy"
-                />
+                <CustomerSelect items={propertyOperation} placeholder="Buy" />
               )}
             </div>
 
@@ -263,11 +246,18 @@ const Home = () => {
               <Search size={17} />
               Search
             </button>
-
           </form>
         </div>
       </section>
-
+      <section className="flex flex-col justify-center mt-15 mb-40 items-center">
+        <ExploreCatagories
+          isActive={isActive}
+          setIsActive={setIsActive}
+          onPropertyData={onPropertyData}
+          onVehicleData={onVehicleData}
+        />
+        <PropertyCatagories data={data} />
+      </section>
 
       {/* ================= SELLER SECTION ================= */}
       <section
@@ -281,23 +271,17 @@ const Home = () => {
         <div className="absolute inset-0 z-0 bg-black/75" />
 
         <div className="relative z-10 flex flex-col gap-10 p-5 sm:p-8 md:p-10 lg:flex-row lg:items-center lg:gap-10 lg:p-12 xl:gap-14 xl:p-14">
-
           {/* Statistics cards */}
           <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-3 lg:w-[52%]">
-
             {/* Happy Clients */}
             <div className="flex min-h-[175px] flex-col items-center justify-center rounded-2xl border border-gray-400/40 bg-black/50 p-5 text-center text-white backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-blue-400/70">
               <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/20 text-blue-400">
                 <UsersRound size={27} />
               </span>
 
-              <span className="text-2xl font-bold xl:text-3xl">
-                +15,000
-              </span>
+              <span className="text-2xl font-bold xl:text-3xl">+15,000</span>
 
-              <span className="mt-2 text-sm text-gray-300">
-                Happy Clients
-              </span>
+              <span className="mt-2 text-sm text-gray-300">Happy Clients</span>
             </div>
 
             {/* Active Properties */}
@@ -306,9 +290,7 @@ const Home = () => {
                 <Calculator size={27} />
               </span>
 
-              <span className="text-2xl font-bold xl:text-3xl">
-                +2,500
-              </span>
+              <span className="text-2xl font-bold xl:text-3xl">+2,500</span>
 
               <span className="mt-2 text-sm text-gray-300">
                 Active Properties
@@ -321,50 +303,37 @@ const Home = () => {
                 <TrendingUp size={27} />
               </span>
 
-              <span className="text-2xl font-bold xl:text-3xl">
-                98%
-              </span>
+              <span className="text-2xl font-bold xl:text-3xl">98%</span>
 
               <span className="mt-2 text-sm text-gray-300">
                 Transaction Success
               </span>
             </div>
-
           </div>
 
           {/* Seller content */}
           <div className="w-full min-w-0 lg:flex-1">
-
             {/* Sales badge */}
             <div className="mb-6 inline-flex max-w-full items-center gap-3 rounded-full border border-gray-400/40 bg-blue-600/10 px-4 py-3 text-sm text-white sm:px-5 sm:text-base">
-              <Sparkles
-                size={20}
-                className="shrink-0 text-blue-400"
-              />
+              <Sparkles size={20} className="shrink-0 text-blue-400" />
 
-              <span>
-                Over 500 successful sales last month
-              </span>
+              <span>Over 500 successful sales last month</span>
             </div>
 
             {/* Seller heading */}
             <h2 className="mb-5 text-3xl font-extrabold leading-tight text-white sm:text-4xl xl:text-5xl">
               Ready to Sell Your{" "}
-              <span className="text-blue-400">
-                Premium Property
-              </span>
-              ?
+              <span className="text-blue-400">Premium Property</span>?
             </h2>
 
             {/* Description */}
             <p className="mb-8 max-w-2xl text-base leading-7 text-gray-300 sm:text-lg sm:leading-8">
-              Join our exclusive network of verified sellers.
-              Showcase your luxury property to qualified buyers worldwide.
+              Join our exclusive network of verified sellers. Showcase your
+              luxury property to qualified buyers worldwide.
             </p>
 
             {/* Seller buttons */}
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
-
               <button
                 type="button"
                 onClick={() => navigate("/listing")}
@@ -385,12 +354,10 @@ const Home = () => {
               >
                 Learn More
               </button>
-
             </div>
           </div>
         </div>
       </section>
-
     </main>
   );
 };
